@@ -1,0 +1,16 @@
+<?php return array (
+  'october\\demo\\Plugin' => 'plugins\\october\\demo\\Plugin.php',
+  'backend\\Controllers\\index' => 'modules\\backend\\controllers\\index.php',
+  'backend\\Controllers\\auth' => 'modules\\backend\\controllers\\auth.php',
+  'system\\Controllers\\settings' => 'modules\\system\\controllers\\settings.php',
+  'system\\Controllers\\updates' => 'modules\\system\\controllers\\updates.php',
+  'abwebdevelopers\\forms\\Plugin' => 'plugins\\abwebdevelopers\\forms\\Plugin.php',
+  'ABWebDevelopers\\Forms\\Models\\Form' => 'plugins\\abwebdevelopers\\forms\\models\\Form.php',
+  'ABWebDevelopers\\Forms\\Models\\Field' => 'plugins\\abwebdevelopers\\forms\\models\\Field.php',
+  'ABWebDevelopers\\Forms\\Models\\Settings' => 'plugins\\abwebdevelopers\\forms\\models\\Settings.php',
+  'rainlab\\builder\\Plugin' => 'plugins\\rainlab\\builder\\Plugin.php',
+  'cms\\Controllers\\index' => 'modules\\cms\\controllers\\index.php',
+  'ABWebDevelopers\\Forms\\Components\\CustomForm' => 'plugins\\abwebdevelopers\\forms\\components\\CustomForm.php',
+  'RainLab\\Builder\\Components\\RecordList' => 'plugins\\rainlab\\builder\\components\\RecordList.php',
+  'RainLab\\Builder\\Components\\RecordDetails' => 'plugins\\rainlab\\builder\\components\\RecordDetails.php',
+);

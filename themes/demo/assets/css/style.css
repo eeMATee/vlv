@@ -1,0 +1,1425 @@
+/* Reset  */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+
+::selection {
+  background-color:rgba(0, 0, 0, 0.623);
+  color: dimgrey;
+}
+
+/*********************************************** Utility Components  *************************************************/
+:root {
+  font-size: 62.5%;
+
+  /***************** Custom Properties *****************/
+
+  /* Colors */
+  --color-primary: #730039;
+  --color-primary-m-light: hsla(330, 100%, 23%, 0.55);
+  --color-primary-m-dark: hsla(330, 100%, 23%, 0.85);
+
+  --color-secondary: #ffc513;
+  --color-secondary-m-light: hsla(45, 100%, 54%, 0.55);
+  --color-secondary-m-dark: rgba(255, 196, 19, 0.85);
+
+  --color-tertiary: #ff724c;
+  --color-tertiary-m-light: hsla(13, 100%, 65%, 0.55);
+  --color-tertiary-m-dark: rgba(255, 115, 76, 0.85);
+
+  --color-quaternary: #f6eedf;
+  --color-quaternary-m-light: hsla(39, 56%, 92%, 0.55);
+  --color-quaternary-m-dark: hsla(39, 56%, 92%, 0.85);
+
+  /* Transtion Duration */
+  --transition-duration: 0.3s;
+
+  /* Section Title Font Size */
+  --font-size-title: calc(2rem + 2vw);
+
+  /* Section Padding */
+  --padding-section: 8vh 3vw;
+}
+
+body {
+  font-family: "Titillium Web", sans-serif;
+  line-height: 1.7;
+  background-color: var(--color-quaternary);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: [container-start] 1fr 
+  [center-start] 
+  repeat(10, [col-start] minmax(min-content, 11rem) [col-end] ) 
+  [center-end] 
+  1fr [container-end];
+
+  grid-template-rows: 100vh repeat(8, min-content);
+}
+
+/* Anchor tags */
+a:link,
+a:visited {
+  color: var(--color-quaternary);
+  text-decoration: none;
+  font-size: calc(0.5rem + 1vw);
+  padding: 1rem 2rem;
+  border-radius: 0.3rem;
+  position: relative;
+  transition: all var(--transition-duration) cubic-bezier(1, 0, 0, 1);
+  z-index: 1;
+}
+
+/* section {
+  height: 200px;
+} */
+
+/* Paragraphs */
+p {
+  color: white;
+  font-size: calc(1rem + 1vw);
+  font-weight: 300;
+}
+
+/* List Items */
+li {
+  list-style: none;
+  margin-bottom: 4rem;
+}
+
+/* Icons */
+i {
+  font-size: var(--font-size-title);
+  color: var(--color-secondary);
+}
+
+/* Main Styling */
+
+/* @@##$$%%^^&&**&&^^%%$$##@@**^^||| Header Section |||^^**@@##$$%%^^&&**&&^^%%$$##@@ */
+
+header#header {
+  /* background-color: var(--color-primary); */
+  grid-column: container-start / container-end;
+  background: linear-gradient(var(--color-primary-m-light), var(--color-primary-m-light)), url('./img/hero.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Nav */
+.header__main-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.header__main-nav input[type=checkbox] {
+  /* No parent as reference, need to always be on the same place */
+  position: absolute;
+  top: 3rem;
+  left: 3rem;
+  height: 5rem;
+  width: 5rem;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 5;
+}
+
+/* Hamburger */
+.header__main-nav--hamburger {
+  position: absolute;
+  top: 3rem;
+  left: 3rem;
+  width: 5rem;
+  height: 5rem;
+  z-index: 4;
+  padding: 1rem;
+  background-color: var(--color-secondary);
+  box-shadow: 0px 0px 46px -15px rgba(0,0,0,0.71);
+
+  display: grid;
+  place-items: center;
+
+  animation: main-nav 2s;
+}
+/* Animation main-nav */
+@keyframes main-nav {
+  0%{
+    opacity: 0;
+    transform: translateX(100vw) rotate(1880deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg);
+  }
+}
+
+/* Hamburger Lines */
+.header__main-nav--hamburger > div {
+  position: relative;
+  width: 100%;
+  height: 0.3rem;
+  background-color: var(--color-quaternary);
+
+  display: grid;
+  place-items: center;
+  transition: all var(--transition-duration) linear;
+}
+
+/* Hamburger Top Bottom */
+.header__main-nav--hamburger > div::before,
+.header__main-nav--hamburger > div::after {
+  content: '';
+  position: absolute;
+  top: -1rem;
+  width: 60%;
+  height: inherit;
+  background-color: inherit;
+  z-index: 2;
+}
+
+.header__main-nav--hamburger > div::before {
+  left: 0;
+}
+
+.header__main-nav--hamburger > div::after {
+  top: 1rem;
+  right: 0;
+}
+
+/* Rotating Menu */
+.header__main-nav input[type=checkbox]:checked + .header__main-nav--hamburger > div {
+  transform: rotate(135deg);
+}
+
+.header__main-nav input[type=checkbox]:checked + .header__main-nav--hamburger > div::before {
+  top: 0;
+  left: 0;
+  width: 100%;
+  transform: rotate(270deg);
+}
+
+.header__main-nav input[type=checkbox]:checked + .header__main-nav--hamburger > div::after {
+  /* opacity: 0; */
+  display: none;
+}
+/* On hover */
+.header__main-nav input[type=checkbox]:checked:hover + .header__main-nav--hamburger > div {
+  transform: rotate(405deg);
+}
+
+.header__main-nav--menu{
+  position: fixed;
+  top:0;
+  height: 0;
+  height: 100%;
+  width: 100%;
+  visibility: hidden;
+  overflow: hidden;
+
+  display: grid;
+  place-items: center;
+}
+
+.header__main-nav--menu > div {
+  background-color: var(--color-secondary-m-dark);
+  height: 200%;
+  width: 200%;
+
+  display: grid;
+  place-items: center;
+
+  transform: scaleX(0);
+  transition: all 1s ease-in-out;
+}
+/* Nav links */
+.header__main-nav--menu > div > div {
+  text-align: center;
+  max-width: 90vw;
+  max-height: 100vh;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Displaying menu when checkbox is ON, header__main-nav--menu have overlay*/
+.header__main-nav input[type=checkbox]:checked ~ .header__main-nav--menu {
+  visibility: visible;
+}
+/* Overlay on click */
+.header__main-nav input[type=checkbox]:checked ~ .header__main-nav--menu > div {
+  transform: scaleX(1);
+}
+/* Nav links on click*/
+.header__main-nav input[type=checkbox]:checked ~.header__main-nav--menu > div > div {
+  opacity: 1;
+}
+
+.header__main-nav--menu ul li a:link,
+.header__main-nav--menu ul li a:visited {
+  z-index: 6;
+  font-size: calc(1.5rem + 0.5vw);
+}
+
+.header__main-nav--menu ul li a:link::before,
+.header__main-nav--menu ul li a:visited::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  /* z index -1, text goes underneath parent */
+  z-index: -1;
+  background-color: var(--color-primary);
+  transform: scaleY(0);
+  transition: all var(--transition-duration) ease-in-out;
+}
+/* Nav Links on hover */
+.header__main-nav--menu ul li a:link:hover::before,
+.header__main-nav--menu ul li a:visited:active::before {
+  transform: scaleY(1);
+}
+
+/* Rest of the header section */
+.header__logo__content {
+  display: grid;
+  grid-template-columns: 1fr minmax(30rem, 1fr) 1fr;
+  grid-template-rows: min-content;
+  height: 90%;
+  justify-items: center;
+}
+
+.header__logo__content--logo {
+  grid-column: 2 / 3;
+  letter-spacing: 0.2rem;
+}
+
+.header__logo__content--logo span {
+  color: var(--color-tertiary);
+  font-size: 3rem;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.header__logo__content--content {
+  grid-column: 1 / -1;
+  align-self: center;
+}
+
+.header__logo__content--content__title {
+  font-size: calc(4rem + 4vw);
+  font-weight: 300;
+  color: white;
+  text-transform: uppercase;
+  padding: 0 2rem 0 var(--font-size-title);
+}
+
+.header__logo__content--content__para {
+  font-size: calc(1rem + 2vw);
+  font-weight: 500;
+  padding: 2vh 2rem 6vh var(--font-size-title);
+}
+
+.header__logo__content--content__link:link,
+.header__logo__content--content__link:visited {
+  margin-left: var(--font-size-title);
+  border: 2px solid var(--color-tertiary);
+}
+
+.header__logo__content--content__link:link::before,
+.header__logo__content--content__link:visited::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-tertiary);
+
+  transform: scaleX(0);
+  transition: all 0.45s cubic-bezier(1, 0, 0, 1);
+  z-index: -1;
+}
+
+.header__logo__content--content__link:link:hover::before,
+.header__logo__content--content__link:active:hover::before {
+  transform: scaleX(1);
+}
+
+
+
+
+/* @@##$$%%^^&&**&&^^%%$$##@@**^^||| Booking Content Section |||^^**@@##$$%%^^&&**&&^^%%$$##@@ */
+
+section#booking-content {
+  grid-column: center-start / col-end 6;
+  padding: var(--padding-section);
+  height: auto;
+
+  display: grid;
+  grid-template-rows: repeat(3, max-content);
+  grid-gap: 2vh;
+  align-self: center;
+}
+
+.booking-content__title {
+  font-size: var(--font-size-title);
+  padding: 0 2rem 1rem;
+  font-weight: 200;
+  /* position for underline */
+  position: relative;
+}
+
+.booking-content__title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+  height: 0.2rem;
+  width: 30%;
+
+  background-color: var(--color-secondary);
+}
+
+.booking-content__para {
+  padding: 2rem;
+}
+
+section#booking-content p {
+  color: var(--color-primary);
+}
+
+.booking-content__icons {
+  margin-left: 2rem;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.booking-content__icons--weather,
+.booking-content__icons--time {
+  display: grid;
+  /* grid-template-columns: repeat(2, 1fr); */
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 10vh;
+  justify-items: start;
+  align-items: center;
+}
+
+/* @@##$$%%^^&&**&&^^%%$$##@@**^^||| Booking Date Section |||^^**@@##$$%%^^&&**&&^^%%$$##@@ */
+
+section#booking-date {
+  grid-column: col-start 7 / center-end;
+
+  padding: var(--padding-section);
+
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 4vw;
+}
+
+.booking-date__schedule {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 2vw;
+  place-items: center;
+}
+
+.booking-date__schedule--arrival,
+.booking-date__schedule--departure,
+.booking-date__schedule--guests {
+  display: grid;
+  grid-row-gap: 2vh;
+
+  /* place-items: center; */
+}
+
+.booking-date__schedule--arrival h5,
+.booking-date__schedule--departure h5,
+.booking-date__schedule--guests h5 {
+  font-size: calc(1rem + 1vw);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.booking-date__schedule--arrival > div,
+.booking-date__schedule--departure > div,
+.booking-date__schedule--guests > div {
+  background-color: var(--color-secondary);
+  padding: calc(1rem + 1vh) calc(1rem + 2vw);
+
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  place-items: center;
+
+  position: relative;
+}
+
+.booking-date__schedule--arrival > div::before,
+.booking-date__schedule--departure > div::before,
+.booking-date__schedule--guests > div::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: calc(50% - 1rem);
+
+  border-width: 1rem;
+  border-style: solid;
+  border-color: transparent transparent var(--color-secondary) transparent;
+}    
+
+.booking-date__schedule--arrival > div p:nth-of-type(2),
+.booking-date__schedule--departure > div p:nth-of-type(2),
+.booking-date__schedule--guests > div p:nth-of-type(2) {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+/*? Booking Contact Div */
+.booking-date__contact {
+  align-self: end;
+  padding-left: 1rem;
+
+}
+
+.booking-date__contact--link:link, 
+.booking-date__contact--link:visited {
+  background-color: var(--color-secondary);
+  color: white;
+  border: 0.2rem solid var(--color-quaternary);
+  transition: all var(--transition-duration) ease-in-out;
+}
+
+.booking-date__contact--link:hover, 
+.booking-date__contact--link:active {
+  color: var(--color-secondary);
+  background-color: white;
+  border: 0.2rem solid var(--color-secondary);
+}
+
+.booking-date__contact p:first-of-type {
+  margin-top: 4rem;
+  color: var(--color-primary);
+}
+
+.booking-date__contact p:nth-of-type(1),
+.booking-date__contact p:nth-of-type(2),
+.booking-date__contact p:nth-of-type(3) {
+  color: var(--color-primary);
+}
+
+
+
+/* @@##$$%%^^&&**&&^^%%$$##@@**^^||| Villas Section |||^^**@@##$$%%^^&&**&&^^%%$$##@@ */
+
+section#villas {
+  grid-column: container-start / container-end;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+  grid-gap: 2rem;
+}
+
+div[class^=villas] {
+  background-color: var(--color-secondary);
+  padding: 2rem;
+
+  background-position: center;
+  background-size: cover;
+  transition: transform var(--transition-duration) ease-in-out;
+}
+
+div[class^=villas]:hover,
+div[class^=villas]:active {
+  transform: scale(1.025);
+}
+
+div[class^=villas] h2[class^=villas] {
+  font-size: var(--font-size-title);
+  padding: 0 2rem 1rem 0;
+  font-weight: 400;
+  color: white;
+  text-transform: uppercase;
+}
+
+div[class^=villas] p[class^=villas] {
+  font-size: 2rem;
+  margin: 1.5rem 0 4rem 0;
+  color: white;
+  font-weight: 500;
+}
+
+div[class^=villas] a[class^=villas]:link,
+div[class^=villas] a[class^=villas]:visited {
+  display: inline-block;
+  margin: 2rem 0;
+
+  background-color: var(--color-quaternary);
+  color: var(--color-primary);
+  z-index: 2;
+  overflow: hidden;
+
+}
+
+div[class^=villas] a[class^=villas]:hover,
+div[class^=villas] a[class^=villas]:active {
+  color: white;
+} 
+
+div[class^=villas] a[class^=villas]:link::before,
+div[class^=villas] a[class^=villas]:visited::before {
+  content: '';
+  width: 100%;
+  height: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -2;
+  background-color: var(--color-secondary);
+  transform: translate(-50%, -50%) rotate(45deg);
+  transition: 0.35s height ease-in-out;
+} 
+
+div[class^=villas]:nth-child(2n) a[class^=villas]:link::before,
+div[class^=villas]:nth-child(2n) a[class^=villas]:active::before {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+div[class^=villas] a[class^=villas]:link:hover::before,
+div[class^=villas] a[class^=villas]:active:hover::before {
+  height: 400%;
+}
+/*? Backgrounds */
+.villas__villa-1 {
+  background: linear-gradient(var(--color-primary-m-light), var(--color-tertiary-m-light)), url('./img/Villas/villa-1.jpg');
+}
+.villas__villa-2 {
+  background: linear-gradient(var(--color-primary-m-light), var(--color-tertiary-m-light)), url('./img/Villas/villa-2.jpg');
+}
+.villas__villa-3 {
+  background: linear-gradient(var(--color-primary-m-light), var(--color-tertiary-m-light)), url('./img/Villas/villa-3.jpg');
+}
+.villas__villa-4 {
+  background: linear-gradient(var(--color-primary-m-light), var(--color-tertiary-m-light)), url('./img/Villas/villa-4.jpg');
+}
+.villas__villa-5 {
+  background: linear-gradient(var(--color-primary-m-light), var(--color-tertiary-m-light)), url('./img/Villas/villa-5.jpg');
+}
+.villas__villa-6 {
+  background: linear-gradient(var(--color-primary-m-light), var(--color-tertiary-m-light)), url('./img/Villas/villa-6.jpg');
+}
+
+
+
+
+
+/* @@##$$%%^^&&**&&^^%%$$##@@**^^||| Motto Section |||^^**@@##$$%%^^&&**&&^^%%$$##@@ */
+
+section#motto {
+  background-color: var(--color-primary);
+  grid-column: container-start / container-end;
+  padding: 10vh;
+}
+
+.motto__content {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.motto__content--title {
+  font-size: var(--font-size-title);
+  font-weight: 300;
+  color: white;
+  padding: 0 2rem 1rem;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+
+  position: relative;
+}
+
+.motto__content--title::after {
+  content: '';
+  position: absolute;
+  width: 30%;
+  height: 0.2rem;
+  bottom: 0;
+  left: 35%;
+  background-color: white;
+}
+
+.motto__content--para {
+  font-weight: 300;
+}
+
+
+
+
+
+/* @@##$$%%^^&&**&&^^%%$$##@@**^^||| Events Content Section |||^^**@@##$$%%^^&&**&&^^%%$$##@@ */
+
+section#events-content {
+  grid-column: container-start / col-end 9;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+}
+
+section#events-content > div {
+  padding: var(--padding-section);
+
+  display: grid;
+  grid-template-areas: 'title'
+                        'para';
+  grid-row-gap: 4vh;
+  align-items: center;
+  justify-items: start;
+}
+
+section#events-content > div:first-child {
+  background: linear-gradient(var(--color-primary-m-light), var(--color-tertiary-m-light)), url('./img/Events/beach-party.jpg');
+  border-right: 0.2rem solid var(--color-tertiary);
+}
+
+section#events-content > div:last-child {
+  background: linear-gradient(var(--color-primary-m-light), var(--color-tertiary-m-light)), url('./img/Events/culture-discovery.jpg');
+  border-left: 0.2rem solid var(--color-tertiary);
+}
+
+section#events-content > div:first-child,
+section#events-content > div:last-child {
+  background-size: cover;
+  background-position: center;
+}
+
+section#events-content > div h2[class*=title] {
+  grid-area: title;
+  font-size: var(--font-size-title);
+  color: white;
+  font-weight: 400;
+}
+
+section#events-content > div p[class*=para] {
+  grid-area: para;
+  color: white;
+  font-weight: 400;
+}
+
+
+
+
+
+
+/* @@##$$%%^^&&**&&^^%%$$##@@**^^||| Events Text Section |||^^**@@##$$%%^^&&**&&^^%%$$##@@ */
+
+section#events-text {
+  grid-column: col-start 10 / center-end;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  justify-items: center;
+  align-items: center;
+  
+  background-color: var(--color-tertiary);
+}
+
+.events-text__title {
+  transform: rotate(0.25turn);
+  color: white;
+  font-size: calc(4rem + 1vw);
+  font-weight: 300;
+  letter-spacing: 0.2rem;
+}
+
+
+
+
+
+
+
+/* @@##$$%%^^&&**&&^^%%$$##@@**^^||| Gallery Text Section |||^^**@@##$$%%^^&&**&&^^%%$$##@@ */
+
+section#gallery-text {
+  grid-column: center-start / col-end 1;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  justify-items: center;
+  align-items: center;
+  
+  background-color: var(--color-primary);
+}
+
+.gallery-text__content {
+  transform: rotate(-0.25turn);
+}
+
+.gallery-text__content--title {
+  color: white;
+  font-size: calc(4rem + 1vw);
+  font-weight: 300;
+  letter-spacing: 0.2rem;
+}
+
+
+
+
+
+/* @@##$$%%^^&&**&&^^%%$$##@@**^^||| Gallery Carousel Section |||^^**@@##$$%%^^&&**&&^^%%$$##@@ */
+
+section#gallery-carousel {
+  background-color: var(--color-primary);
+
+  grid-column: col-start 2 / conteiner-end;
+
+  height: 90vh;
+  overflow: hidden;
+  position: relative;
+
+  border: 0.2rem solid var(--color-secondary);
+}
+
+/* ? Image Container */
+.gallery-carousel__container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* ? Image Container UL */
+.gallery-carousel__container--list {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  transition: transform 0.5s ease-in-out;
+
+}
+
+/*? Image Container LI*/
+.gallery-carousel__container--list__item{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/*? Carousel Images */
+.gallery-carousel__container--list__item img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.gallery-carousel__btn {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+/* ? Button Right */
+.gallery-carousel__btn--right {  
+  right: 0;
+}
+
+/* ? Carousel Navigation */
+.gallery-carousel__nav {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 5%;
+  transform: translateX(-50%);
+  margin-bottom: 1rem;
+
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(10, 1fr);
+  grid-gap: 2.5rem;
+}
+
+.gallery-carousel__nav--btn {
+  background-color: var(--color-secondary);
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 0.1rem solid black;
+  cursor: pointer;
+}
+
+/* ? Current Button */
+.current--img {
+  background-color: var(--color-primary);
+}
+
+/*? Applaying hidden arrows */
+.hidden {
+  display: none;
+}
+
+
+
+
+
+
+/* @@##$$%%^^&&**&&^^%%$$##@@**^^||| Features Content Section |||^^**@@##$$%%^^&&**&&^^%%$$##@@ */
+
+section#features-content {
+  grid-column: container-start / col-end 9;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+}
+
+section#features-content > div {
+  padding: var(--padding-section);
+
+  display: grid;
+  grid-template-areas: 'title'
+                        'para';
+  grid-row-gap: 4vh;
+  align-items: center;
+  justify-items: start;
+}
+
+section#features-content > div:first-child {
+  background: linear-gradient(var(--color-secondary-m-light), var(--color-tertiary-m-light)), url('./img/Features/cocktail.jpg');
+  border-right: 0.2rem solid var(--color-secondary-m-light);
+}
+
+section#features-content > div:last-child {
+  background: linear-gradient(var(--color-secondary-m-light), var(--color-tertiary-m-light)), url('./img/Features/surfing.jpg');
+  border-left: 0.2rem solid var(--color-secondary-m-light);
+}
+
+section#features-content > div:first-child,
+section#features-content > div:last-child {
+  background-size: cover;
+  background-position: center;
+}
+
+section#features-content > div h2[class*=title] {
+  grid-area: title;
+  font-size: var(--font-size-title);
+  color: white;
+  font-weight: 400;
+}
+
+section#features-content > div p[class*=para] {
+  grid-area: para;
+  color: white;
+  font-weight: 400;
+}
+
+
+
+
+
+/* @@##$$%%^^&&**&&^^%%$$##@@**^^||| Features Text Section |||^^**@@##$$%%^^&&**&&^^%%$$##@@ */
+
+section#features-text {
+  grid-column: col-start 10 / center-end;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  justify-items: center;
+  align-items: center;
+  
+  background-color: var(--color-tertiary);
+}
+
+.features-text__title {
+  transform: rotate(0.25turn);
+  color: white;
+  font-size: calc(4rem + 1vw);
+  font-weight: 300;
+  letter-spacing: 0.2rem;
+}
+
+
+
+/* @@##$$%%^^&&**&&^^%%$$##@@**^^||| Testimonial Section |||^^**@@##$$%%^^&&**&&^^%%$$##@@ */
+
+section#testimonials {
+  grid-column: center-start / center-end;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 28rem);
+  grid-gap: 5rem;
+  place-content: center;
+  
+  padding: 5rem;
+}
+
+.testimonials__card {
+  width: 28rem;
+  height: 50rem;
+  position: relative;
+}
+
+.testimonials__card--front,
+.testimonials__card--back {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  transition: all 1s ease-in-out;
+  backface-visibility: hidden;
+  transform: perspective(100rem);
+
+  display: grid;
+  justify-items: center;
+  align-items: start;
+  padding: 3rem;
+}
+
+.testimonials__card--front h2 {
+  background-color: var(--color-secondary-m-light);
+  padding: 1rem;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+.testimonials__card--back p {
+  place-self: center;
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.testimonials__card:first-child .testimonials__card--front {
+  background-image: url('./img/Testimonials/testimonials-1.jpg');
+}
+.testimonials__card:nth-child(2) .testimonials__card--front {
+  background-image: url('./img/Testimonials/testimonials-2.jpg');
+}
+.testimonials__card:nth-child(3) .testimonials__card--front {
+  background-image: url('./img/Testimonials/testimonials-3.jpg');
+}
+.testimonials__card:nth-child(4) .testimonials__card--front {
+  background-image: url('./img/Testimonials/testimonials-4.jpg');
+}
+.testimonials__card:nth-child(5) .testimonials__card--front {
+  background-image: url('./img/Testimonials/testimonials-5.jpg');
+}
+.testimonials__card:last-child .testimonials__card--front {
+  background-image: url('./img/Testimonials/testimonials-6.jpg');
+}
+
+
+.testimonials__card--back {
+  transform: perspective(100rem) rotateY(180deg);
+  background-color: var(--color-secondary);
+}
+
+.testimonials__card:hover .testimonials__card--front {
+  transform: perspective(100rem) rotateY(180deg);
+}
+
+.testimonials__card:hover .testimonials__card--back {
+  transform: perspective(100rem) rotateY(360deg);
+}
+
+
+
+
+
+
+
+/* @@##$$%%^^&&**&&^^%%$$##@@**^^||| Footer Section |||^^**@@##$$%%^^&&**&&^^%%$$##@@ */
+
+footer#footer {
+  background-color: var(--color-primary);
+  padding: 6vh 4vw;
+
+  grid-column: container-start / container-end;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  place-items: center;
+}
+
+.footer__social--link {
+  display: inline-block;
+  background-color: var(--color-secondary);
+  border-radius: 4rem;
+  margin-right: 1rem;
+  box-shadow: 0.5rem 0.5rem 2rem 0.5rem var(--color-secondary-m-light),
+  -0.5rem -0.5rem 2rem 0.5rem var(--color-secondary-m-light);
+  transform: scale(0.8);
+  animation: social 3s linear infinite;
+}
+
+@keyframes social {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+
+.footer__social--link i {
+  font-size: 2rem;
+  color: var(--color-primary);
+}
+
+.footer__social--link:visited,
+.footer__social--link:link {
+  border-radius: 4rem;
+}
+
+.footer__social--link:visited:nth-child(1),
+.footer__social--link:link:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.footer__social--link:visited:nth-child(2),
+.footer__social--link:link:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.footer__social--link:visited:nth-child(3),
+.footer__social--link:link:nth-child(3) {
+  animation-delay: 1s;
+}
+
+.footer__social--link:visited:nth-child(4),
+.footer__social--link:link:nth-child(4) {
+  animation-delay: 1.5s;
+}
+
+
+/* ! MEEEEEEEDIA QUERIES */
+
+/****************************** 1000 px Queries **************************************/
+
+@media screen and (max-width: 1000px) {
+
+  /*~~~~~~~~~~~~~~ All Links ~~~~~~~~~~~~~~~~*/
+  a:link,
+  a:visited {
+    font-size: calc(1rem + 1vw);
+  }
+
+}
+
+
+/****************************** 800 px Queries **************************************/
+ 
+  @media screen and (max-width: 800px) {
+
+    /*~~~~~~~~~~~~~~ Booking Content Section ~~~~~~~~~~~~~~~~*/
+    section#booking-content {
+      grid-column: container-start / container-end;
+      padding: 4vh 3vw 0 3vw;
+    }
+
+    .booking-content__title {
+      text-align: center;
+    }
+    .booking-content__title::after {
+      left: calc(50% - 30%/2);
+    }
+
+
+
+    /*~~~~~~~~~~~~~~ Booking Date Section ~~~~~~~~~~~~~~~~*/
+    section#booking-date {
+      grid-column: container-start / container-end;
+      grid-template-rows: repeat(2, max-content);
+      padding: 4vh 3vw 4vh 3vw;
+      grid-gap: 7vh;
+    }
+
+    /* Inside container goes to 1 row  */
+    .booking-date__schedule--arrival > div,
+    .booking-date__schedule--departure > div,
+    .booking-date__schedule--guests > div {
+      padding: 1.5rem;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: max-content;
+      place-items: center;
+      grid-gap: 0.7rem;
+
+    }
+
+    .booking-date__contact {
+      align-self: center;
+      padding: 2rem;
+    }
+
+    .booking-content__title {
+      text-align: center;
+    }
+    .booking-content__title::after {
+      left: calc(50% - 30%/2);
+    }
+
+
+
+    /*~~~~~~~~~~~~~~ Villas Section ~~~~~~~~~~~~~~~~*/
+    section#villas {
+      grid-gap: 0;
+    }
+    div[class^=villas] p[class^=villas] {
+      margin: 4rem 1rem 4rem 0rem;
+    }
+
+
+
+
+    /*~~~~~~~~~~~~~~ Motto Section ~~~~~~~~~~~~~~~~*/
+    section#motto {
+      padding: 5vh 2vw;
+    }
+    .motto__content {
+      width: 90%;
+    }
+    .motto__content--title::after {
+      height: 0.1rem;
+    }
+
+
+
+    /*~~~~~~~~~~~~~~ Events Content Section ~~~~~~~~~~~~~~~~*/
+    section#events-content > div:first-child{
+      border: none;
+    }
+    section#events-content > div:last-child {
+      border-left: 0.2rem solid var(--color-tertiary);
+    }
+      
+  
+
+    /*~~~~~~~~~~~~~~ Feauters Content Section ~~~~~~~~~~~~~~~~*/
+    section#features-content > div:first-child{
+      border: none;
+    }
+    section#features-content > div:last-child {
+      border-left: 0.2rem solid var(--color-tertiary);
+    }
+
+
+    /*~~~~~~~~~~~~~~ Booking Content Section ~~~~~~~~~~~~~~~~*/
+    footer#footer {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+      grid-row-gap: 2vh;
+      padding: 2vh 2vw 4vh 2vw;
+    }
+    footer#footer p {
+      font-size: 1.5rem;
+    }
+
+        
+  }
+
+
+/****************************** 600 px Queries **************************************/
+  /* Header Paragraph */
+@media screen and (max-width: 600px) {
+
+   /*~~~~~~~~~~~~~~ Header Section ~~~~~~~~~~~~~~~~*/ 
+   .header__logo__content--content__para {
+    font-size: 2rem;
+  }
+
+  
+
+
+
+
+   /*~~~~~~~~~~~~~~ Booking Date Section ~~~~~~~~~~~~~~~~*/
+  .booking-date__schedule--arrival > div,
+  .booking-date__schedule--departure > div,
+  .booking-date__schedule--guests > div {
+    background-color: var(--color-secondary);
+
+    padding: 3rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    place-items: center;
+  }
+
+  .booking-date__contact {
+    padding: calc(1rem + 1vh) calc(1rem + 1vw);
+  }
+
+
+
+
+
+  /*~~~~~~~~~~~~~~ Villas Section ~~~~~~~~~~~~~~~~*/
+  div[class^=villas] p[class^=villas] {
+    font-size: calc(1.3rem + 0.5vw);
+  }
+
+  div[class^=villas] h2[class^=villas] {
+    font-size: calc(1.5rem + 2vw);
+  }
+
+
+
+
+
+  /*~~~~~~~~~~~~~~ Motto Setion ~~~~~~~~~~~~~~~~*/
+  .motto__content--title {
+    font-size: calc(1.5rem + 2vw);
+  }
+  .motto__content--para {
+    font-size: calc(1rem + 1vw);
+  }
+
+
+
+
+  /*~~~~~~~~~~~~~~ Events Content Section ~~~~~~~~~~~~~~~~*/
+  section#events-content {
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    grid-column: container-start / container-end;
+  }
+
+  section#events-content > div:first-child,
+  section#events-content > div:last-child {
+    border:none;
+  }
+
+  section#events-content > div h2[class*=title] {
+    font-size: calc(2rem + 2vw);
+  }
+
+  section#events-content > div p[class*=para] {
+    font-size: calc(1rem + 1vw);
+  }
+
+  /*~~~~~~~~~~~~~~ Events Text Section ~~~~~~~~~~~~~~~~*/
+  section#events-text {
+    display: none;
+  }
+
+
+
+
+  /*~~~~~~~~~~~~~~ Gallery Text Section ~~~~~~~~~~~~~~~~*/
+  section#gallery-text {
+    display: none;
+  }
+
+  /*~~~~~~~~~~~~~~ Gallery Carousel Section ~~~~~~~~~~~~~~~~*/
+  section#gallery-carousel{
+    grid-column: container-start / container-end;
+  }
+
+  .gallery-carousel__nav{
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(5, 1fr);
+    height: 12%;
+    grid-row-gap: 3vh;
+    grid-column-gap: 10vw;
+  }
+
+  .gallery-carousel__btn i.fas {
+    font-size: 5rem;
+  }
+
+
+
+
+
+  /*~~~~~~~~~~~~~~ Features Content Section ~~~~~~~~~~~~~~~~*/
+  section#features-content {
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    grid-column: container-start / container-end;
+  }
+
+  section#features-content > div:first-child,
+  section#features-content > div:last-child {
+    border:none;
+  }
+
+  section#features-content > div h2[class*=title] {
+    font-size: calc(2rem + 2vw);
+  }
+
+  section#features-content > div p[class*=para] {
+    font-size: calc(1rem + 1vw);
+  }
+
+  /*~~~~~~~~~~~~~~ Features Text Section ~~~~~~~~~~~~~~~~*/
+  section#features-text {
+    display: none;
+  }
+
+}
+
+
+/****************************** 400 px Queries **************************************/
+
+@media screen and (max-width: 400px) {
+
+
+  /*~~~~~~~~~~~~~~ Booking Date Schedule ~~~~~~~~~~~~~~~~*/
+  .booking-date__schedule {
+    grid-template-columns: auto;
+    grid-template-rows: repeat(3, 1fr);
+    grid-row-gap: 14vw;
+
+  }
+
+  .booking-date__schedule--arrival > div,
+  .booking-date__schedule--departure > div,
+  .booking-date__schedule--guests > div {
+    background-color: var(--color-secondary);
+    padding: calc(1rem + 1vh) calc(3rem + 2vw);
+  }
+
+
+
+  /*~~~~~~~~~~~~~~ Events Content Section ~~~~~~~~~~~~~~~~*/
+  section#events-content > div {
+    padding: 2vh 8vw;
+  }
+
+
+  /*~~~~~~~~~~~~~~ Features Content Section ~~~~~~~~~~~~~~~~*/
+  section#features-content > div {
+    padding: 2vh 8vw;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+}
